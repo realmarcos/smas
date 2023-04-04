@@ -5,7 +5,7 @@ const OnlineStatusCheckInterval = () => {
   
   setInterval(async () => {
     await VerifyIsOnline();
-  }, checkIntervalMs);
+  }, 6000);
 };
 
 export default OnlineStatusCheckInterval;

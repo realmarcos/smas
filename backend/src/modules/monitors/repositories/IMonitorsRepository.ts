@@ -1,7 +1,7 @@
 
 interface IMonitorsRepository {
   verifyIsOnline(site: string): Promise<void>;
-  onlineStatusCheckInterval(): void;
+  onlineStatusCheckInterval(site: string): void;
 }
 
 export {IMonitorsRepository};

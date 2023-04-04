@@ -6,8 +6,10 @@ import { AppError } from "../../../../shared/errors/AppError";
 
 class VerifyIsOnlineWithAxios implements IMonitorsRepository {
   private instance: AxiosInstance;
-  private baseURL = process.env.URL_TO_MONITOR;
+  // private baseURL = process.env.URL_TO_MONITOR;
   private timeoutMillisecondsToSeconds = 4 * 1000;
+  private checkIntervalInSeconds = process.env.CHECK_INTERVAL_IN_SECONDS || 60;
+  
 
   constructor() {
     this.instance = axios.create({
@@ -29,8 +31,11 @@ class VerifyIsOnlineWithAxios implements IMonitorsRepository {
     }
   }
 
-  onlineStatusCheckInterval(): void {
-    throw new Error("Method not implemented.");
+  async onlineStatusCheckInterval(site: string): Promise<void> {
+    const checkIntervalMs = +this.checkIntervalInSeconds * 1000; 
+    setInterval(async() => {
+      await this.verifyIsOnline(site);
+    }, checkIntervalMs);
   }
 }
 
