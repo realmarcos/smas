@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosInstance } from "axios";
-// import { AppError } from "../../../../shared/errors/AppError";
 import logger from "../../../../shared/log/logger";
 import { IMonitorsRepository } from "../../repositories/IMonitorsRepository";
+import { AppError } from "../../../../shared/errors/AppError";
 
 class VerifyIsOnlineWithAxios implements IMonitorsRepository {
   private instance: AxiosInstance;
@@ -11,7 +11,6 @@ class VerifyIsOnlineWithAxios implements IMonitorsRepository {
 
   constructor() {
     this.instance = axios.create({
-      // baseURL: this.baseURL,
       withCredentials: false,
       timeout: this.timeoutMillisecondsToSeconds,
       headers: {
@@ -25,8 +24,8 @@ class VerifyIsOnlineWithAxios implements IMonitorsRepository {
       const response = await this.instance.get(site);
       logger.info(`Website ${site} is online! status: ${response.status}`);
     } catch (error: any) {
-      // logger.error(`Website ${site} is offline! Erro: ${error.message}`);
-      throw new Error("Website offline!");
+      logger.error(`Website ${site} is offline! Erro: ${error.message}`);
+      throw new AppError("Website is offline!");
     }
   }
 

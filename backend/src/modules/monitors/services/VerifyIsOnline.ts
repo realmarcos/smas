@@ -15,10 +15,10 @@ class VerifyIsOnline {
     const siteIsValid = this.validateSite(site);
 
     if (!siteIsValid) {
-      throw new Error("Website url is invalid.");
+      throw new AppError("Website url is invalid.", 400);
     }
     
-    this.monitorsRepository.verifyIsOnline(site);
+    await this.monitorsRepository.verifyIsOnline(site);
   }
 }
 
