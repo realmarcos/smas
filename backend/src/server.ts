@@ -9,10 +9,12 @@ app.listen(process.env.PORT, () => {
 });
 
 const verifyIsOnline = new VerifyIsOnlineWithAxios();
+const verifyIsOnlineAPI = new VerifyIsOnlineWithAxios();
 
 const site = process.env.URL_TO_MONITOR || "https://google.com.br";
 
 verifyIsOnline.onlineStatusCheckInterval(site);
 
-
-verifyIsOnline.onlineStatusCheckInterval("https://api.app.oibot.com.br/");
+//my api
+verifyIsOnlineAPI.onlineStatusCheckInterval("https://api.app.oibot.com.br/status");
+// verifyIsOnline.onlineStatusCheckInterval("http://localhost:8080/status");

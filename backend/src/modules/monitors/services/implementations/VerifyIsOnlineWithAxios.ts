@@ -28,8 +28,8 @@ class VerifyIsOnlineWithAxios implements IMonitorsRepository {
 
   async verifyIsOnline(site: string): Promise<void> {
     try {
-      const response = await this.instance.get(site).catch(() => {
-        throw new AppError("Website is offline!", 400);
+      const response = await this.instance.get(site).catch((err) => {
+        throw new AppError("Website is offline! "+ err.message, 400);
       });
       logger.info(`Website ${site} is online! status: ${response.status}`);
       await this.handleAlerts.execute("online", site);
