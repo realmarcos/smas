@@ -1,8 +1,12 @@
-import express from "express";
+import express, {Request, Response} from "express";
 import "./bootstrap";
 import logger from "./shared/log/logger";
 import { VerifyIsOnlineWithAxios } from "./modules/monitors/services/implementations/VerifyIsOnlineWithAxios";
 const app = express();
+
+app.use("/", (req: Request, res: Response) => {
+  res.status(200).send("App is online!");
+});
 
 app.listen(process.env.PORT, () => {
   logger.info(`Server started on port: ${process.env.PORT}`);
